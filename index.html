@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дешевые авиабилеты, акции РЖД и ошибки тарифов | Мониторинг скидок 24/7</title>
+    <meta name="description" content="Автоматический мониторинг дешевых авиабилетов, ошибок цен авиакомпаний, акций РЖД (Сапсаны, Ласточки, скидки на купе) и горящих туров по России и миру. Telegram: @skidki_biletyi.">
+    <meta name="keywords" content="дешевые авиабилеты, скидки ржд, билеты на поезд дешево, ошибки тарифов, сапсан скидки, ласточка билеты, горящие туры, авиасейлс дешевые билеты, акции авиакомпаний, яндекс путешествия, туту ру, скидки на билеты телеграм, skidki biletyi">
+
+    <!-- Open Graph / VK / Telegram -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://magomedta.github.io/travel-deals-radar/">
+    <meta property="og:title" content="Скидки на билеты | Авиабилеты, Поезда РЖД и Туры">
+    <meta property="og:description" content="Мониторинг ошибок тарифов, скидок РЖД и чартерных рейсов без наценок. Моментальные уведомления в Telegram.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/magomedta/travel-deals-radar/main/avatar.jpg">
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Скидки на билеты | Авиа & РЖД">
+    <meta property="twitter:description" content="Горящие билеты на самолеты и поезда по промо-ценам.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/magomedta/travel-deals-radar/main/avatar.jpg">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Скидки на билеты — Радар тарифов",
+      "operatingSystem": "All",
+      "applicationCategory": "TravelApplication",
+      "description": "Автономный радар акций авиакомпаний и РЖД с моментальными оповещениями."
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080b14;
+            color: #f1f5f9;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #0284c7 0%, #06b6d4 100%);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
+            transition: all 0.2s ease;
+        }
+        .btn-gradient:hover {
+            box-shadow: 0 6px 25px rgba(6, 182, 212, 0.4);
+            transform: translateY(-1px);
+        }
+        .deal-card {
+            background: #0f1422;
+            border: 1px solid #1a2236;
+            transition: all 0.2s ease;
+        }
+        .deal-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .filter-btn.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #38bdf8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-black">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-slate-950 border-b border-slate-800 py-2.5 px-4 text-center text-xs md:text-sm">
+        <span class="inline-flex items-center gap-2 font-medium">
+            <span class="text-sky-400 font-bold uppercase tracking-wider text-[11px]">Мониторинг тарифов:</span>
+            <span class="text-slate-300">Ошибки тарифов и скидки РЖД разбирают быстро. Оповещения в Telegram:</span>
+            <a href="https://t.me/skidki_biletyi" target="_blank" class="text-cyan-400 hover:text-cyan-300 font-bold underline inline-flex items-center gap-1">
+                @skidki_biletyi &rarr;
+            </a>
+        </span>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl overflow-hidden border border-slate-800 shadow-md">
+                    <img src="avatar.jpg" alt="Логотип" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl tracking-tight text-white">
+                        СКИДКИ НА БИЛЕТЫ
+                    </h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">Авиабилеты, Поезда РЖД и Горящие туры</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <a href="https://t.me/skidki_biletyi" target="_blank" class="btn-gradient px-4 py-2 text-xs sm:text-sm font-bold text-white rounded-lg flex items-center gap-2">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z"/></svg>
+                    Telegram-канал
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-6 text-center">
+        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto">
+            Горящие билеты, скидки РЖД и ошибки тарифов
+        </h2>
+
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mt-4 leading-relaxed">
+            Мониторинг спецтарифов, чартерных рейсов, акций Сапсана и скидок на поезда без наценок и скрытых комиссий.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-4 mt-7">
+            <a href="https://t.me/skidki_biletyi" target="_blank" class="btn-gradient px-6 py-3.5 text-base font-bold text-white rounded-xl inline-flex items-center gap-2.5">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .37z"/></svg>
+                Подписаться на оповещения (@skidki_biletyi)
+            </a>
+            <button onclick="shareRadar()" class="px-5 py-3.5 text-sm font-semibold text-slate-300 hover:text-white bg-slate-900 border border-slate-800 rounded-xl transition hover:border-slate-700 inline-flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                Поделиться сайтом
+            </button>
+        </div>
+    </section>
+
+    <!-- Filters and Search Toolbar -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-slate-900/60 border border-slate-800 rounded-2xl">
+            <!-- Filter buttons -->
+            <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+                <button onclick="setFilter('all')" id="btn-all" class="filter-btn active px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-800 bg-slate-800 text-slate-300 transition">
+                    Все предложения
+                </button>
+                <button onclick="setFilter('flight')" id="btn-flight" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-white transition">
+                    ✈️ Авиабилеты
+                </button>
+                <button onclick="setFilter('train')" id="btn-train" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-white transition">
+                    🚆 Поезда РЖД & Сапсан
+                </button>
+                <button onclick="setFilter('tour')" id="btn-tour" class="filter-btn px-3.5 py-1.5 text-xs font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400 hover:text-white transition">
+                    🏖️ Туры и отели
+                </button>
+            </div>
+
+            <!-- Search Input -->
+            <div class="w-full md:w-72">
+                <input type="text" id="city-search" oninput="applyFilters()" placeholder="Поиск по городу / направлению..." class="w-full px-3.5 py-2 text-xs bg-slate-950 border border-slate-800 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:border-sky-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
+        <div class="flex items-center justify-between mb-6 pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-3">
+                <h3 class="text-xl font-bold text-white">
+                    Актуальные предложения
+                </h3>
+                <span id="deal-count-badge" class="text-xs mono bg-slate-900 border border-slate-800 text-sky-400 px-2.5 py-0.5 rounded-full font-semibold">
+                    Загрузка...
+                </span>
+            </div>
+            <div class="text-xs text-slate-500 mono hidden sm:block">
+                Обновляется автоматически
+            </div>
+        </div>
+
+        <div id="deals-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Loading Skeletons -->
+            <div class="deal-card p-5 rounded-2xl">
+                <div class="h-44 bg-slate-800/50 rounded-xl mb-4"></div>
+                <div class="h-5 bg-slate-800/50 rounded w-3/4 mb-3"></div>
+                <div class="h-4 bg-slate-800/50 rounded w-1/2 mb-4"></div>
+                <div class="h-10 bg-slate-800/50 rounded-lg"></div>
+            </div>
+            <div class="deal-card p-5 rounded-2xl">
+                <div class="h-44 bg-slate-800/50 rounded-xl mb-4"></div>
+                <div class="h-5 bg-slate-800/50 rounded w-3/4 mb-3"></div>
+                <div class="h-4 bg-slate-800/50 rounded w-1/2 mb-4"></div>
+                <div class="h-10 bg-slate-800/50 rounded-lg"></div>
+            </div>
+            <div class="deal-card p-5 rounded-2xl">
+                <div class="h-44 bg-slate-800/50 rounded-xl mb-4"></div>
+                <div class="h-5 bg-slate-800/50 rounded w-3/4 mb-3"></div>
+                <div class="h-4 bg-slate-800/50 rounded w-1/2 mb-4"></div>
+                <div class="h-10 bg-slate-800/50 rounded-lg"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky Floating Mobile Banner -->
+    <aside class="sticky bottom-4 mx-auto max-w-2xl w-[92%] z-30">
+        <div class="bg-slate-900/95 backdrop-blur-lg border border-slate-700/80 p-3 sm:p-4 rounded-2xl shadow-2xl flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-sky-500 text-black flex items-center justify-center font-bold text-sm">
+                    TG
+                </div>
+                <div>
+                    <div class="text-xs sm:text-sm font-bold text-white">Моментальные пуши об ошибках тарифов</div>
+                    <div class="text-[11px] text-slate-400">Канал <b>@skidki_biletyi</b> в Telegram</div>
+                </div>
+            </div>
+            <a href="https://t.me/skidki_biletyi" target="_blank" class="btn-gradient px-4 py-2 text-xs sm:text-sm font-bold text-white rounded-xl whitespace-nowrap">
+                Подписаться
+            </a>
+        </div>
+    </aside>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 bg-black/60 py-8 px-4 text-center text-xs text-slate-500 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Скидки на билеты. Мониторинг тарифов авиакомпаний и РЖД.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://t.me/skidki_biletyi" target="_blank" class="hover:text-sky-400 transition">Telegram</a>
+                <a href="feed.json" target="_blank" class="hover:text-sky-400 transition">JSON Feed</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Deal Renderer Script -->
+    <script>
+        let allDeals = [];
+        let currentFilter = 'all';
+
+        async function fetchDeals() {
+            const grid = document.getElementById('deals-grid');
+            const badge = document.getElementById('deal-count-badge');
+
+            try {
+                const res = await fetch('feed.json?t=' + Date.now());
+                if (!res.ok) throw new Error('Failed to load feed.json');
+                const data = await res.json();
+                allDeals = data.deals || [];
+                applyFilters();
+            } catch (err) {
+                console.warn('Feed load failed, fallback:', err);
+                badge.textContent = 'Активно';
+                grid.innerHTML = `
+                    <div class="col-span-full p-8 text-center bg-slate-900 border border-slate-800 rounded-2xl">
+                        <p class="text-slate-300 mb-3 font-semibold">Все горящие билеты и акции публикуются моментально в нашем Telegram-канале.</p>
+                        <a href="https://t.me/skidki_biletyi" target="_blank" class="btn-gradient px-6 py-2.5 text-sm font-bold text-white rounded-xl inline-flex items-center gap-2">
+                            Открыть канал @skidki_biletyi
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-slate-800', 'text-white');
+                btn.classList.add('bg-slate-900', 'text-slate-400');
+            });
+            const activeBtn = document.getElementById('btn-' + filter);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'bg-slate-800', 'text-white');
+                activeBtn.classList.remove('bg-slate-900', 'text-slate-400');
+            }
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const grid = document.getElementById('deals-grid');
+            const badge = document.getElementById('deal-count-badge');
+            const query = (document.getElementById('city-search').value || '').toLowerCase().trim();
+
+            let filtered = allDeals;
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(d => d.deal_type === currentFilter);
+            }
+
+            if (query) {
+                filtered = filtered.filter(d => 
+                    (d.title || '').toLowerCase().includes(query) || 
+                    (d.summary || '').toLowerCase().includes(query)
+                );
+            }
+
+            badge.textContent = `${filtered.length} Найдено`;
+            grid.innerHTML = '';
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full p-8 text-center bg-slate-900/60 border border-slate-800 rounded-2xl text-slate-400">
+                        По вашему запросу предложений не найдено. Попробуйте другой город или фильтр.
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(deal => {
+                const card = document.createElement('div');
+                card.className = 'deal-card p-5 rounded-2xl flex flex-col justify-between';
+
+                const imageSrc = deal.image || 'avatar.jpg';
+                let typeBadge = '✈️ Авиабилет';
+                let primaryBtnText = '✈️ Купить на Aviasales';
+                let primaryBtnUrl = deal.aviasales_url || 'https://www.aviasales.ru/?marker=521190';
+
+                if (deal.deal_type === 'train') {
+                    typeBadge = '🚆 Поезд РЖД';
+                    primaryBtnText = '🚆 Билеты на поезд (Яндекс)';
+                    primaryBtnUrl = deal.train_url || 'https://travel.yandex.ru/trains/?marker=521190';
+                } else if (deal.deal_type === 'tour') {
+                    typeBadge = '🏖️ Тур / Отель';
+                    primaryBtnText = '🏨 Отели со скидкой';
+                    primaryBtnUrl = deal.hotel_url || 'https://ostrovok.ru/?marker=521190';
+                }
+
+                const shareText = encodeURIComponent(`🔥 Скидка на билеты: ${deal.title}! Подробнее в Telegram:`);
+                const shareUrl = `https://t.me/share/url?url=https://t.me/skidki_biletyi&text=${shareText}`;
+
+                card.innerHTML = `
+                    <div>
+                        <div class="relative overflow-hidden rounded-xl mb-4 bg-slate-900 aspect-video">
+                            <img src="${imageSrc}" alt="${deal.title}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" loading="lazy" onerror="this.src='avatar.jpg'">
+                            <span class="absolute top-2 right-2 bg-sky-500 text-black font-extrabold text-[11px] px-2.5 py-1 rounded-md shadow-md mono">
+                                ${typeBadge}
+                            </span>
+                            <span class="absolute bottom-2 left-2 bg-black/80 backdrop-blur-sm text-slate-300 text-[10px] font-semibold px-2 py-0.5 rounded border border-slate-700">
+                                ${deal.source || 'Мониторинг'}
+                            </span>
+                        </div>
+
+                        <h4 class="font-bold text-base text-white line-clamp-2 mb-2 leading-snug" title="${deal.title}">
+                            ${deal.title}
+                        </h4>
+                        
+                        <p class="text-xs text-slate-400 line-clamp-3 mb-4 leading-relaxed">
+                            ${deal.summary || 'Спецтариф или акционное предложение.'}
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="grid grid-cols-1 gap-2 mb-2 pt-3 border-t border-slate-800/80">
+                            <a href="${primaryBtnUrl}" target="_blank" class="text-center py-2 px-3 bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs rounded-xl transition">
+                                ${primaryBtnText}
+                            </a>
+                            <a href="https://t.me/skidki_biletyi" target="_blank" class="text-center py-2 px-3 bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 font-semibold text-xs rounded-xl transition">
+                                🔔 Получать такие билеты в Telegram
+                            </a>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-1 pt-2 border-t border-slate-800/60 text-[11px] text-slate-500">
+                            <span>Поделиться:</span>
+                            <div class="flex items-center gap-1">
+                                <a href="${shareUrl}" target="_blank" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 hover:text-sky-400 rounded text-[10px] font-semibold border border-slate-700/60 transition">
+                                    Telegram
+                                </a>
+                                <a href="https://vk.com/share.php?url=${encodeURIComponent('https://t.me/skidki_biletyi')}&title=${encodeURIComponent(deal.title)}" target="_blank" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 hover:text-blue-400 rounded text-[10px] font-semibold border border-slate-700/60 transition">
+                                    VK
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function shareRadar() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Скидки на билеты | Авиа и РЖД',
+                    text: 'Радар горящих авиабилетов, акций Сапсана и скидок РЖД.',
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert('Ссылка скопирована в буфер обмена.');
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchDeals);
+    </script>
+</body>
+</html>
